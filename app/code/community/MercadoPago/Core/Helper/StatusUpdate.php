@@ -265,12 +265,8 @@ class MercadoPago_Core_Helper_StatusUpdate
                 $status = Mage::getStoreConfig('payment/mercadopago/order_status_chargeback');
                 break;
             }
-            case 'in_process': {
-                $status = Mage::getStoreConfig('payment/mercadopago/order_status_in_process');
-                break;
-            }
             default: {
-                $status = Mage::getStoreConfig('payment/mercadopago/order_status_pending');
+                $status = Mage::getStoreConfig('payment/mercadopago/order_status_in_process');
             }
         }
 

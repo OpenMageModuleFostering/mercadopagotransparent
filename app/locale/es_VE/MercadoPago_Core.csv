@@ -9,11 +9,9 @@
 "Choose the status of approved orders","Elija el estado de los pedidos para pagos Aprobados"
 "Choose the status of refunded orders","Elija el estado de los pedidos para pagos Devueltos"
 "Choose the status when payment is pending","Elija el estado de los pedidos para pagos Pendientes"
-"Choose the status when payment is in process", "Elija el estado de los pedidos para pagos En Proceso"
 "Choose the status when client open a mediation","Elija el estado de los pedidos para pagos en Disputa"
-"Choose the status when payment was rejected","Elija el estado de los pedidos para pagos Rechazados"
+"Choose the status when payment was reject","Elija el estado de los pedidos para pagos Rechazados"
 "Choose the status when payment was canceled","Elija el estado de los pedidos para pagos Cancelados"
-"Choose the status when payment was charge back","Elija el estado de los pedidos para pagos con status Charge Back"
 "Checkout Position","Posición en el Checkout"
 "To manage the status available go to System > Order Statuses","Para gerenciar los estados disponibles vaya a 'System > Order Statuses'"
 
@@ -72,6 +70,7 @@
 
 "Generate the ticket and pay it wherever you want.","Genere el ticket de pago y pague"
 "Will be approved within 2 business days.","Será aprobado en hasta 2 días hábiles"
+
 
 "Thank you for your purchase!","Gracias por su compra!"
 "Your order %s has been successfully generated.","Su pedido con el numero %s fué generado con éxito."
@@ -143,35 +142,3 @@
 
 "Consider Discounts","Considerar descuentos"
 "Consider discount of Mercado Pago to invoicing","Considerar descuento de Mercado Pago en la facturación"
-
-"Mercado Pago Payment Id: %s","Id transacción Mercado Pago: %s"
-"Payment Status: approved","Estado del Pago: Aprobado"
-"Payment Status: in_process", "Estado del Pago: en proceso"
-"Payment Status: rejected", "Estado del Pago: rechazado"
-"Payment Detail: accredited","Detalle del Pago: acreditado"
-"Payment Detail: pending_contingency","Detalle del Pago: pendiente"
-"Payment Detail: cc_rejected_call_for_authorize","Detalle del Pago: Tarjeta de crédito rechazada. Llamar para autorizar."
-"Payment Detail: cc_rejected_insufficient_amount","Detalle del Pago: Tarjeta de crédito rechazada por monto insuficiente."
-"Payment Detail: cc_rejected_bad_filled_security_code","Detalle del Pago: Tarjeta de crédito rechazada por código de seguridad."
-"Payment Detail: cc_rejected_bad_filled_other","Detalle del Pago: Tarjeta de crédito rechazada por error en formulario."
-"Payment Detail: cc_rejected_other_reason","Detalle del Pago: Rechazo general"
-"Payment Detail: cc_rejected_bad_filled_date","Detalle del Pago: Tarjeta de crédito rechazada por fecha de expiración."
-
-"Select","Seleccione"
-"Name","Nombre"
-"Surname","Apellido"
-"Document Number","Número de documento"
-"Address","Dirrección"
-"Number","Número"
-"City","Ciudad"
-"State","Estado"
-"Zipcode","Código postal"
-
-"Name required","Obligatorio completar el Nombre"
-"Surname required","Obligatorio completar el Nombre"
-"Document Number required","Obligatorio completar de un documento valido"
-"Address required","Obligatorio completar la dirrección"
-"Number Address required","Obligatorio completar el Número de dirrección"
-"City required","Obligatorio completar el Ciudad"
-"State required","Obligatorio completar el Estado"
-"Zipcode required","Obligatorio completar el Código postal"

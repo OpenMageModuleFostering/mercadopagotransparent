@@ -213,14 +213,12 @@ var MercadoPagoCustom = (function () {
             }
 
             if (isOsc()) {
-              //inovarti onestepcheckout
-              self.constants.checkout = 'onestepcheckout';
-            } else if (isOsc4()) {
-              self.constants.checkout = 'onestepcheckout';
-            }else if (isIdeasa()) {
-              //ideasa onestepcheckout
-              self.constants.checkout = 'idecheckoutvm';
-              payment.changeVisible('mercadopago_customticket', true);
+                //inovarti onestepcheckout
+                self.constants.checkout = 'onestepcheckout';
+            } else if (isIdeasa()) {
+                //ideasa onestepcheckout
+                self.constants.checkout = 'idecheckoutvm';
+                payment.changeVisible('mercadopago_customticket', true);
             }
 
             //Show public key
@@ -371,8 +369,6 @@ var MercadoPagoCustom = (function () {
             if (isOsc()) {
                 //inovarti onestepcheckout
                 OSCPayment.savePayment();
-            } else if (isOsc4()) {
-                OPC.prototype.save();
             } else if (isIdeasa()) {
                 //ideasa onestepcheckout
                 payment.update();
@@ -382,10 +378,6 @@ var MercadoPagoCustom = (function () {
 
         function isOsc() {
             return (typeof OSCPayment !== self.constants.undefined);
-        }
-
-        function isOsc4() {
-            return (typeof OPC !== self.constants.undefined);
         }
 
         function isIdeasa() {
@@ -1085,8 +1077,6 @@ var MercadoPagoCustom = (function () {
                             if (isOsc()) {
                                 //inovarti onestepcheckout
                                 OSCPayment.savePayment();
-                            } else if (isOsc4()) {
-                                OPC.prototype.save();
                             } else if (isIdeasa()) {
                                 //ideasa onestepcheckout
                                 payment.update();
@@ -1139,9 +1129,7 @@ var MercadoPagoCustom = (function () {
                 if (isOsc()) {
                     //inovarti onestepcheckout
                     OSCPayment.savePayment();
-                } else if (isOsc4()) {
-                    OPC.prototype.save();
-                }  else if (isIdeasa()) {
+                } else if (isIdeasa()) {
                     //ideasa onestepcheckout
                     payment.update();
                 }

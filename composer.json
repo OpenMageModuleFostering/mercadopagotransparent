@@ -1,13 +1,13 @@
 {
     "name": "OpenMageModuleFostering/MercadoPagoTransparent",
     "type": "magento-module",
-    "license": "OSL-v3.0",
+    "license": "OSL",
     "homepage": "",
     "description": "MercadoPago payment extension for Magento: receive payments with our customizable checkout",
     "authors": [
     {
-        "name": "Developers MercadoPago Brasil",
-        "email": "modulos@mercadopago.com"
+        "name": "MercadoPago",
+        "email": "developer@mercadopago.com.br"
     }
 ],
     "suggest": {

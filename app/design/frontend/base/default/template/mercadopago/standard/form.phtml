@@ -1,9 +1,7 @@
 <?php $_code = $this->getMethodCode(); ?>
 
 <script type="text/javascript">
-    if (typeof sendAnalyticsData === 'function') {
-        sendAnalyticsData("<?php echo $_code ?>");
-    }
+    sendAnalyticsData("<?php echo $_code ?>");
 </script>
 <fieldset class="conteiner-form-list">
     <!--<link rel="stylesheet" href="<?php echo $this->getSkinUrl('mercadopago/css/style.css'); ?>" /> -->

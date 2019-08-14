@@ -68,7 +68,6 @@ var MercadoPagoCustom = (function () {
             mercadopagoCustom: 'mercadopago_custom',
             validateDiscount: 'validate-discount',
             validateDocNumber: 'mp-validate-docnumber',
-            validateCardNumber: 'mp-validate-cardnumber',
             validateCC: 'mp-validate-cc-exp',
             invalidCoupon: 'invalid_coupon',
             cost: 'cost',
@@ -112,7 +111,6 @@ var MercadoPagoCustom = (function () {
             paymentMethodSelect: '#mercadopago_checkout_custom #paymentMethod',
             paymentMethodId: '#mercadopago_checkout_custom .payment_method_id',
             paymenMethodNotFound: '.error-payment-method-not-found',
-            secondCardPaymenMethodNotFound: '.second_card_error-payment-method-not-found',
             mercadoPagoTextChoice: '#mercadopago_checkout_custom .mercadopago-text-choice',
             errorMethodMinAmount: '.error-payment-method-min-amount',
             textDefaultIssuer: '#mercadopago_checkout_custom .mercadopago-text-default-issuer',
@@ -122,13 +120,11 @@ var MercadoPagoCustom = (function () {
             baseUrl: '.mercado_base_url',
             loading: '#mercadopago-loading',
             messageError: '.message-error',
-            messageErrorSecond: 'message-error-second',
-            messageErrorFirst: 'message-error-first',
             customDiscountAmount: '#mercadopago_checkout_custom .mercadopago-discount-amount',
             discountAmount: '.mercadopago-discount-amount',
             token: '#mercadopago_checkout_custom .token',
-            errorFormat: '.first-card .error-{0}',
-            errorFormatSecondCard: '#mercadopago_checkout_custom_second_card .error-{0}',
+            errorFormat: '#mercadopago_checkout_custom .error-{0}',
+            errorFormatSecondCard: '#second_card_mercadopago_checkout_custom .error-{0}',
             couponActionApply: '.mercadopago-coupon-action-apply',
             couponActionRemove: '.mercadopago-coupon-action-remove',
             ticketActionApply: '#mercadopago_checkout_custom_ticket .mercadopago-coupon-action-apply',
@@ -151,8 +147,6 @@ var MercadoPagoCustom = (function () {
             firstCardAmount: '#first_card_amount',
             secondCardAmount: '#second_card_amount',
             firstCardAmountFields:'#first_card_amount_fields',
-            firstCardErrors: '.first-card .message-error',
-
             secondCardReturnToCardList: '#second_card_return_list_card_mp',
             secondCardCustomCard: '#second_card_mercadopago_checkout_custom_card',
             secondCardUseOtherCard: '#second_card_use_other_card_mp',
@@ -183,8 +177,7 @@ var MercadoPagoCustom = (function () {
             firstCardTotalBuy: ".total_buy",
             secondCardTotalBuy: ".second_card_total_buy",
             secondCardPayment: "#second_card_payment",
-            paymentMethodSelectSecondCard: '#second_card_paymentMethod',
-            secondCardErrors: '#mercadopago_checkout_custom_second_card .message-error'
+            paymentMethodSelectSecondCard: '#second_card_paymentMethod'
 
         },
         url: {
@@ -303,8 +296,6 @@ var MercadoPagoCustom = (function () {
             Validation.add(self.constants.validateDocNumber, self.messages.invalidDocument, function (v, element) {
                 return checkDocNumber(v);
             });
-
-            Validation.add('co-payment-form', ' ', formHasErrors);
 
             Validation.add(self.constants.validateCC, self.messages.incorrectExpDate, function (v, element) {
                 var ccExpMonth = v;
@@ -1159,7 +1150,7 @@ var MercadoPagoCustom = (function () {
 
             } else {
 
-                showMessageErrorForm(self.selectors.secondCardPaymenMethodNotFound);
+                showMessageErrorForm(self.selectors.paymenMethodNotFound);
 
             }
 
@@ -1267,7 +1258,7 @@ var MercadoPagoCustom = (function () {
 
             showLogMercadoPago(self.messages.getInstallment);
 
-            //hideMessageError();
+            hideMessageError();
             showLoading();
 
             var route = TinyJ(self.selectors.mercadoRoute).val();
@@ -1327,7 +1318,7 @@ var MercadoPagoCustom = (function () {
 
         function getInstallmentsSecondCard(options) {
 
-            //hideMessageError();
+            hideMessageError();
             showLoading();
 
             var route = TinyJ(self.selectors.mercadoRoute).val();
@@ -1469,24 +1460,40 @@ var MercadoPagoCustom = (function () {
                 }
                 selectorInstallments.enable();
             } else {
-                showMessageErrorForm(self.selectors.secondCardPaymenMethodNotFound);
+                showMessageErrorForm(self.selectors.paymenMethodNotFound);
             }
         }
 
 
-    function releaseEventCreateCardToken() {
+        function releaseEventCreateCardToken() {
             showLogMercadoPago(self.messages.releaseCardTokenEvent);
 
             var dataCheckout = TinyJ(self.selectors.dataCheckout);
+            var dataCheckoutSecondCard = TinyJ(self.selectors.dataCheckoutSecondCard);
 
             if (Array.isArray(dataCheckout)) {
                 for (var x = 0; x < dataCheckout.length; x++) {
+                    if ((dataCheckout[x].getElem().id).indexOf("second") >= 0) {
+                        dataCheckout[x].focusout(checkCreateCardTokenSecondCard);
+                        dataCheckout[x].change(checkCreateCardTokenSecondCard);
+                    } else {
                         dataCheckout[x].focusout(checkCreateCardToken);
                         dataCheckout[x].change(checkCreateCardToken);
+                    }
                 }
             } else {
                 dataCheckout.focusout(checkCreateCardToken);
                 dataCheckout.change(checkCreateCardToken);
+            }
+
+            if (Array.isArray(dataCheckoutSecondCard)) {
+                for (var y = 0; y < dataCheckoutSecondCard.length; y++) {
+                    //dataCheckoutSecondCard[y].focusout(checkCreateCardTokenSecondCard);
+                    //dataCheckoutSecondCard[y].change(checkCreateCardTokenSecondCard);
+                }
+            } else {
+                //dataCheckoutSecondCard.focusout(checkCreateCardTokenSecondCard);
+                //dataCheckoutSecondCard.change(checkCreateCardTokenSecondCard);
             }
 
         }
@@ -1519,10 +1526,6 @@ var MercadoPagoCustom = (function () {
                 showLoading();
                 console.log(TinyJ(selector).getElem());
                 Mercadopago.createToken(TinyJ(selector).getElem(), sdkResponseHandler);
-            }
-
-            if (isSecondCardUsed) {
-                checkCreateCardTokenSecondCard();
             }
         }
 
@@ -1563,7 +1566,7 @@ var MercadoPagoCustom = (function () {
             showLogMercadoPago(response);
 
             //hide all errors
-            hideMessageError(self.selectors.firstCardErrors);
+            hideMessageError();
             hideLoading();
 
             if (status == http.status.OK || status == http.status.CREATED) {
@@ -1586,7 +1589,7 @@ var MercadoPagoCustom = (function () {
             showLogMercadoPago(status);
             showLogMercadoPago(response);
             //hide all errors
-            hideMessageError(self.selectors.secondCardErrors);
+            hideMessageError();
             hideLoading();
 
             if (status == http.status.OK || status == http.status.CREATED) {
@@ -1605,10 +1608,9 @@ var MercadoPagoCustom = (function () {
         };
 
 
-        function hideMessageError(selector) {
-            selector = selector || self.selectors.messageError;
+        function hideMessageError() {
             showLogMercadoPago(self.messages.hideErrors);
-            var allMessageErrors = TinyJ(selector);
+            var allMessageErrors = TinyJ(self.selectors.messageError);
             if (Array.isArray(allMessageErrors)) {
                 for (var x = 0; x < allMessageErrors.length; x++) {
                     allMessageErrors[x].hide();
@@ -1631,25 +1633,6 @@ var MercadoPagoCustom = (function () {
                 messageText.show();
             }
 
-        }
-
-        function formHasErrors() {
-            console.log('checking errors...');
-            var allMessageErrors = jQuery('p.message-error');
-            if (allMessageErrors.length > 1) {
-                for (var x = 0; x < allMessageErrors.length; x++) {
-                    if (jQuery(allMessageErrors[x]).css('display') !== 'none') {
-                        return false;
-                    }
-                }
-            } else {
-                if (jQuery(allMessageErrors).css('display') !== 'none') {
-                    alert('Form has errors');
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         function showLoading() {

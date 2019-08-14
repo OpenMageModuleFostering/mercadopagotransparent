@@ -160,10 +160,7 @@ class MercadoPago_Core_NotificationsController
         }
 
         $this->_helper->log('Payment not found', self::LOG_FILE, $request->getParams());
-
-        // Internal error returns to force Mercado Pago renotification
-        $this->_setResponse('Payment not found', MercadoPago_Core_Helper_Response::HTTP_INTERNAL_ERROR);
-
+        $this->_setResponse('Payment not found', MercadoPago_Core_Helper_Response::HTTP_NOT_FOUND);
         $this->_helper->log('Http code', self::LOG_FILE, $this->getResponse()->getHttpResponseCode());
     }
 
@@ -181,7 +178,6 @@ class MercadoPago_Core_NotificationsController
         $this->_paymentData = $this->_getDataPayments();
         $this->_statusFinal = $this->_statusHelper->getStatusFinal($this->_paymentData['status'], $this->_merchantOrder);
         $this->_shipmentData = $this->_getShipmentsArray();
-        $this->merchantOrder = $merchantOrder;
 
         return true;
     }
