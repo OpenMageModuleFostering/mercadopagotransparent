@@ -3,7 +3,7 @@
     "type": "magento-module",
     "license": "OSL-v3.0",
     "homepage": "",
-    "description": "Checkout Transparente e Standard (Cartão de credito, Boleto e dinheiro em conta) usando MercadoPago.",
+    "description": "MercadoPago payment extension for Magento: receive payments with our customizable checkout",
     "authors": [
     {
         "name": "Developers MercadoPago Brasil",
