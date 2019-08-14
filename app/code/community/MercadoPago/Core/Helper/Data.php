@@ -27,6 +27,11 @@ class MercadoPago_Core_Helper_Data
     const PLATFORM_DESKTOP = 'Desktop';
     const TYPE = 'magento';
 
+    protected $_statusUpdatedFlag = false;
+    protected $_apiInstance;
+
+    protected $_website;
+
     public function log($message, $file = "mercadopago.log", $array = null)
     {
         $actionLog = Mage::getStoreConfig('payment/mercadopago/logs');
@@ -40,27 +45,45 @@ class MercadoPago_Core_Helper_Data
         }
     }
 
+    public function isStatusUpdated()
+    {
+        return $this->_statusUpdatedFlag;
+    }
+
+    public function setStatusUpdated($notificationData)
+    {
+        $order = Mage::getModel('sales/order')->loadByIncrementId($notificationData["external_reference"]);
+        $status = $notificationData['status'];
+        $currentStatus = $order->getPayment()->getAdditionalInformation('status');
+        if ($status == $currentStatus && $order->getState() === Mage_Sales_Model_Order::STATE_COMPLETE) {
+            $this->_statusUpdatedFlag = true;
+        }
+    }
+
     public function getApiInstance()
     {
-        $params = func_num_args();
-        if ($params > 2 || $params < 1) {
-            Mage::throwException("Invalid arguments. Use CLIENT_ID and CLIENT SECRET, or ACCESS_TOKEN");
-        }
-        if ($params == 1) {
-            $api = new MercadoPago_Lib_Api(func_get_arg(0));
-            $api->set_platform(self::PLATFORM_V1_WHITELABEL);
-        } else {
-            $api = new MercadoPago_Lib_Api(func_get_arg(0), func_get_arg(1));
-            $api->set_platform(self::PLATFORM_DESKTOP);
-        }
-        if (Mage::getStoreConfigFlag('payment/mercadopago_standard/sandbox_mode')) {
-            $api->sandbox_mode(true);
+        if (empty($this->_apiInstance)) {
+            $params = func_num_args();
+            if ($params > 2 || $params < 1) {
+                Mage::throwException("Invalid arguments. Use CLIENT_ID and CLIENT SECRET, or ACCESS_TOKEN");
+            }
+            if ($params == 1) {
+                $api = new MercadoPago_Lib_Api(func_get_arg(0));
+                $api->set_platform(self::PLATFORM_V1_WHITELABEL);
+            } else {
+                $api = new MercadoPago_Lib_Api(func_get_arg(0), func_get_arg(1));
+                $api->set_platform(self::PLATFORM_DESKTOP);
+            }
+            if (Mage::getStoreConfigFlag('payment/mercadopago_standard/sandbox_mode')) {
+                $api->sandbox_mode(true);
+            }
+
+            $api->set_type(self::TYPE . ' ' . (string)Mage::getConfig()->getModuleConfig("MercadoPago_Core")->version);
+
+            $this->_apiInstance = $api;
         }
 
-        $api->set_type(self::TYPE . ' ' . (string) Mage::getConfig()->getModuleConfig("MercadoPago_Core")->version);
-
-        return $api;
-
+        return $this->_apiInstance;
     }
 
     public function isValidAccessToken($accessToken)
@@ -160,12 +183,12 @@ class MercadoPago_Core_Helper_Data
 
     public function setOrderSubtotals($data, $order)
     {
-        if (isset($data['total_paid_amount'])){
-            $balance = $this->_getMultiCardValue($data['total_paid_amount']);
+        if (isset($data['total_paid_amount'])) {
+            $balance = $this->_getMultiCardValue($data, 'total_paid_amount');
         } else {
             $balance = $data['transaction_details']['total_paid_amount'];
         }
-        $shippingCost = $this->_getMultiCardValue($data['shipping_cost']);
+        $shippingCost = $this->_getMultiCardValue($data, 'shipping_cost');
 
         $order->setGrandTotal($balance);
         $order->setBaseGrandTotal($balance);
@@ -174,8 +197,8 @@ class MercadoPago_Core_Helper_Data
             $order->setShippingAmount($shippingCost);
         }
 
-        $couponAmount = $this->_getMultiCardValue($data['coupon_amount']);
-        $transactionAmount = $this->_getMultiCardValue($data['transaction_amount']);
+        $couponAmount = $this->_getMultiCardValue($data, 'coupon_amount');
+        $transactionAmount = $this->_getMultiCardValue($data, 'transaction_amount');
 
         if ($couponAmount) {
             $order->setDiscountCouponAmount($couponAmount * -1);
@@ -185,7 +208,7 @@ class MercadoPago_Core_Helper_Data
             $balance = $balance - $transactionAmount - $shippingCost;
         }
 
-        if (Zend_Locale_Math::round($balance,4) > 0) {
+        if (Zend_Locale_Math::round($balance, 4) > 0) {
             $order->setFinanceCostAmount($balance);
             $order->setBaseFinanceCostAmount($balance);
         }
@@ -207,15 +230,55 @@ class MercadoPago_Core_Helper_Data
         return $payment;
     }
 
-    protected function _getMultiCardValue($fullValue) {
+    protected function _getMultiCardValue($data, $field)
+    {
         $finalValue = 0;
-        $values = explode('|', $fullValue);
-        foreach ($values as $value) {
-            $value = (float) str_replace(' ', '', $value);
-            $finalValue = $finalValue + $value;
+        if (!isset($data[$field])) {
+            return $finalValue;
+        }
+        $amountValues = explode('|', $data[$field]);
+        $statusValues = explode('|', $data['status']);
+        foreach ($amountValues as $key => $value) {
+            $value = (float)str_replace(' ', '', $value);
+            if (str_replace(' ', '', $statusValues[$key]) == 'approved') {
+                $finalValue = $finalValue + $value;
+            }
         }
 
         return $finalValue;
+    }
+
+    public function getSuccessUrl()
+    {
+        if (Mage::getStoreConfig('payment/mercadopago/use_successpage_mp')) {
+            $url = 'mercadopago/success';
+        } else {
+            $url = 'checkout/onepage/success';
+        }
+
+        return $url;
+    }
+
+    /**
+     * Return the website associated to admin combo select
+     *
+     * @return Mage_Core_Model_Website
+     */
+    public function getAdminSelectedWebsite()
+    {
+        if (isset($this->_website)) {
+            return $this->_website;
+        }
+
+        $websiteId = Mage::getSingleton('adminhtml/config_data')->getWebsite();
+
+        if ($websiteId) {
+            $this->_website = Mage::app()->getWebsite($websiteId);
+        } else {
+            $this->_website = Mage::app()->getWebsite();
+        }
+
+        return $this->_website;
     }
 
 }

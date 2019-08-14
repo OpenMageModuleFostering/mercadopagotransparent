@@ -1,66 +1,173 @@
 <?xml version="1.0"?>
 <package>
     <name>MercadoPagoTransparent</name>
-    <version>0.0.4</version>
-    <stability>stable</stability>
-    <license>OSL v3.0</license>
+    <version>2.2.0</version>
+    <stability>devel</stability>
+    <license>OSL</license>
     <channel>community</channel>
     <extends/>
     <summary>MercadoPago payment extension for Magento: receive payments with our customizable checkout</summary>
-    <description>"Credit Card Customized Checkout&#xD;
-This feature will allow merchants to have a customized checkout for credit card payment. Thus, it will be possible to customize its look and feel, customers won&#x2019;t be redirected away to complete the payment, and it will also reduce the checkout steps improving conversion rates.&#xD;
+    <description>&lt;b&gt;Credit Card Customized Checkout&lt;/b&gt;&#xD;
 &#xD;
-Available for Argentina, Brazil, Colombia, Mexico and Venezuela&#xD;
+&lt;p&gt;&#xD;
+	This feature will allow merchants to have a customized checkout for credit card payment. Thus, it will be possible to customize its look and feel, customers won&#x2019;t be redirected away to complete the payment, and it will also reduce the checkout steps improving conversion rates.&#xD;
+&lt;/p&gt;&#xD;
+&lt;p&gt;&#xD;
+	Available for &lt;i&gt;Argentina&lt;/i&gt;, &lt;i&gt;Brazil&lt;/i&gt;, &lt;i&gt;Colombia&lt;/i&gt;, &lt;i&gt;Mexico&lt;/i&gt; and &lt;i&gt;Venezuela&lt;/i&gt;&#xD;
+&lt;/p&gt;&#xD;
 &#xD;
-Customized Bar Code Payment&#xD;
-This feature allows merchants to have a customized bar code payment. It reduces the checkout steps improving conversion rates. The bar code payment will have merchant's logo.&#xD;
+&lt;b&gt;Customized Bar Code Payment&lt;/b&gt;&#xD;
 &#xD;
-Available for Argentina, Brazil, Colombia, Mexico and Venezuela&#xD;
+&lt;p&gt;&#xD;
+	This feature allows merchants to have a customized bar code payment. It reduces the checkout steps improving conversion rates. The bar code payment will have merchant's logo.&#xD;
+&lt;/p&gt;&#xD;
+&lt;p&gt;&#xD;
+	Available for &lt;i&gt;Argentina&lt;/i&gt;, &lt;i&gt;Brazil&lt;/i&gt;, &lt;i&gt;Colombia&lt;/i&gt;, &lt;i&gt;Mexico&lt;/i&gt; and &lt;i&gt;Venezuela&lt;/i&gt;&#xD;
+&lt;/p&gt;&#xD;
 &#xD;
-Standard Checkout&#xD;
-This feature allows merchants to have a standard checkout. It includes all payment methods (i.e. all credit cards, bar code payment, account money) and all window types (i.e. redirect, iframe, modal, blank and popup). Customization is not allowed.&#xD;
+&lt;b&gt;Standard Checkout&lt;/b&gt;&#xD;
 &#xD;
-Available for Argentina, Brazil, Chile, Colombia, Mexico and Venezuela&#xD;
+&lt;p&gt;&#xD;
+	This feature allows merchants to have a standard checkout. It includes all payment methods (i.e. all credit cards, bar code payment, account money) and all window types (i.e. redirect, iframe, modal, blank and popup). Customization is not allowed.&#xD;
+&lt;/p&gt;&#xD;
+&lt;p&gt;&#xD;
+	Available for &lt;i&gt;Argentina&lt;/i&gt;, &lt;i&gt;Brazil&lt;/i&gt;, &lt;i&gt;Chile&lt;/i&gt;, &lt;i&gt;Colombia&lt;/i&gt;, &lt;i&gt;Mexico&lt;/i&gt; and &lt;i&gt;Venezuela&lt;/i&gt;&#xD;
+&lt;/p&gt;&#xD;
 &#xD;
-OneClick Pay &#xD;
-This feature allows to store credit card information for the customer, so that the next time there is no need to enter all the card details. Customers will just need to re-enter the security code of the credit card they want to use."</description>
-    <notes>"MercadoPago v2.1.2&#xD;
+&lt;b&gt;OneClick Pay&lt;/b&gt;&#xD;
 &#xD;
-New internal module file structure&#xD;
+&lt;p&gt;&#xD;
+	This feature allows to store credit card information for the customer, so that the next time there is no need to enter all the card details. Customers will just need to re-enter the security code of the credit card they want to use.&#xD;
+&lt;/p&gt;&#xD;
 &#xD;
-- Javascript code refactored&#xD;
+&lt;b&gt; Compatibility with OSC extensions &lt;/b&gt;&#xD;
+&lt;p&gt;&#xD;
+	This feature allows easy integration with two of the most used One Step Checkout extensions in the market: &lt;br /&gt;&lt;br /&gt;&#xD;
 &#xD;
-- New plugin configuration layout&#xD;
+	- Inovarti OSC&lt;br /&gt;&#xD;
+	- Idecheckoutvm&lt;br /&gt;&#xD;
+&lt;/p&gt;&#xD;
 &#xD;
-- Added Customers &amp; Cards feature&#xD;
+&lt;b&gt;Shipment integration&lt;/b&gt;&#xD;
+&lt;p&gt;&#xD;
+	This feature allows to setup and integrate with MercadoEnvios shipment method as another shipment option for customers. It includes the possibility to print the shipping label directly from the Magento Admin Panel. Free shipping is also available.&#xD;
+&lt;/p&gt;&#xD;
+&lt;p&gt;&#xD;
+	Available for &lt;i&gt;Argentina&lt;/i&gt;, &lt;i&gt;Brazil&lt;/i&gt; and &lt;i&gt;Mexico&lt;/i&gt; only with &lt;u&gt;Standard Checkout&lt;/u&gt;&#xD;
+&lt;/p&gt;&#xD;
 &#xD;
-- Magento orders now contain subtotals related to MP coupons and financing cost.&#xD;
+&lt;b&gt;Setup MercadoPago&lt;/b&gt;&#xD;
+&lt;ol&gt;&#xD;
+	&lt;li&gt;Go to System &gt; Configuration &gt; Sales &gt; Payment Methods. Select Mercado Pago - Global Configuration.&lt;/li&gt;&#xD;
 &#xD;
-- Document type and card token validation on checkout&#xD;
+	&lt;li&gt;Set your Country to the same where your account was created on, and save config. Note: If you change the Country where your account was created you need save configuration in order to refresh the excluded payment methods.&lt;/li&gt;&#xD;
 &#xD;
-- Venezuela added as available country.&#xD;
+	&lt;li&gt;Other general configurations: &lt;br /&gt;&#xD;
+		&lt;b&gt;Category of your store&lt;/b&gt;: Sets up the category of the store.&lt;br /&gt;&#xD;
+		&lt;b&gt;Choose the status of approved orders&lt;/b&gt;: Sets up the order status when payments are approved.&lt;br /&gt;&#xD;
+		&lt;b&gt;Choose the status of refunded orders&lt;/b&gt;: Sets up the order status when payments are refunded.&lt;br /&gt;&#xD;
+		&lt;b&gt;Choose the status when payment is pending&lt;/b&gt;: Sets up the order status when payments are pending.&lt;br /&gt;&#xD;
+		&lt;b&gt;Choose the status when client open a mediation&lt;/b&gt;: Sets up the order status when client opens a mediation.&lt;br /&gt;&#xD;
+		&lt;b&gt;Choose the status when payment was reject&lt;/b&gt;: Sets up the order status when payments are rejected.&lt;br /&gt;&#xD;
+		&lt;b&gt;Choose the status when payment was canceled&lt;/b&gt;: Sets up the order status when payments are canceled.&lt;br /&gt;&#xD;
+		&lt;b&gt;Choose the status when payment was chargeback&lt;/b&gt;: Sets up the order status when payments are chargeback.&lt;br /&gt;&#xD;
+		&lt;b&gt;Logs&lt;/b&gt;: Enables/disables system logs.&lt;br /&gt;&#xD;
+		&lt;b&gt;Debug Mode&lt;/b&gt;: If enabled, displays the raw response from the API instead of a friendly message.&lt;br /&gt;&#xD;
+		&lt;b&gt;Onestepcheckout Active&lt;/b&gt; (Only available if MercadoPago_OneStepCheckout Module is installed): Enables/disables compatibility with one step checkout modules.&lt;br /&gt;&#xD;
+	&lt;/li&gt;&#xD;
+&lt;/ol&gt;&#xD;
 &#xD;
-- Compatibility with OSC extensions innovarti and ideasa&#xD;
 &#xD;
-MercadoEnvios 0.1.0&#xD;
+&lt;b&gt;Custom Checkout Payment Solution&lt;/b&gt;&#xD;
+&lt;ol&gt;&#xD;
+	&lt;li&gt;Go to System &gt; Configuration &gt; Sales &gt; Payment Methods. Select Mercado Pago - Custom Checkout. &lt;/li&gt;&#xD;
+	&lt;li&gt;Set your Public Key and Access Token.&#x2028; In order to get them check the following links according to the country you are opperating in:&lt;br /&gt;&#xD;
+		Argentina: &lt;a href="https://www.mercadopago.com/mla/account/credentials"&gt;https://www.mercadopago.com/mla/account/credentials&lt;/a&gt;&lt;br /&gt;&#xD;
+		Brazil: &lt;a href="https://www.mercadopago.com/mlb/account/credentials"&gt;https://www.mercadopago.com/mlb/account/credentials&lt;/a&gt;&lt;br /&gt;&#xD;
+		Chile: &lt;a href="https://www.mercadopago.com/mlc/account/credentials"&gt;https://www.mercadopago.com/mlc/account/credentials&lt;/a&gt;&lt;br /&gt;&#xD;
+		Colombia: &lt;a href="https://www.mercadopago.com/mco/account/credentials"&gt;https://www.mercadopago.com/mco/herramientas/aplicaciones&lt;/a&gt;&lt;br /&gt;&#xD;
+		exico: &lt;a href="https://www.mercadopago.com/mlm/account/credentials"&gt;https://www.mercadopago.com/mlm/account/credentials&lt;/a&gt;&lt;br /&gt;&#xD;
+		Venezuela: &lt;a href="https://www.mercadopago.com/mlv/account/credentials"&gt;https://www.mercadopago.com/mlv/account/credentials&lt;/a&gt;&lt;br /&gt;&#xD;
+	&lt;/li&gt;&#xD;
+&lt;/ol&gt;&#xD;
 &#xD;
-- New module available for Argentina, Brazil and Mexico only with Standard Checkout&#xD;
+&lt;p&gt;&#xD;
+	If you want to enable credit card solution, check the configurations under Checkout Custom - Credit Card: &lt;br /&gt;&lt;br /&gt;&#xD;
+	&lt;b&gt;Enabled&lt;/b&gt;: Enables/disables this payment solution.&lt;br /&gt;&#xD;
+	&lt;b&gt;Payment Title&lt;/b&gt;: Sets the payment title.&lt;br /&gt;&#xD;
+	&lt;b&gt;Statement Descriptor&lt;/b&gt;: Sets the label as the customer will see the charge for amount in his/her bill.&lt;br /&gt;&#xD;
+	&lt;b&gt;Binary Mode&lt;/b&gt;: When set to true, the payment can only be approved or rejected. Otherwise in_process status is added.&lt;br /&gt;&#xD;
+	&lt;b&gt;Banner Checkout&lt;/b&gt;: Sets the URL for the banner image in the payment method selection in the checkout process.&lt;br /&gt;&#xD;
+	&lt;b&gt;Checkout Position&lt;/b&gt;: The position of the payment solution in the checkout process.&lt;br /&gt;&#xD;
+	&lt;b&gt;Marketing - Coupon Mercado Pago&lt;/b&gt;: Enables/disables the coupon form.&lt;br /&gt;&#xD;
+&lt;/p&gt;&#xD;
 &#xD;
-- Package size and weight attributes can be mapped with magento attributes, and its units can be converted through admin panel.&#xD;
+&lt;p&gt;&#xD;
+	If you want to enable ticket solution, check the configurations under Checkout Custom - Ticket:&lt;br /&gt;&lt;br /&gt;&#xD;
+	&lt;b&gt;Enabled&lt;/b&gt;: Enables/disables this payment solution.&lt;br /&gt;&#xD;
+	&lt;b&gt;Payment Title&lt;/b&gt;: Sets the payment title.&lt;br /&gt;&#xD;
+	&lt;b&gt;Banner Checkout&lt;/b&gt;: Sets the URL for the banner image in the payment method selection in the checkout process.&lt;br /&gt;&#xD;
+	&lt;b&gt;Checkout Position&lt;/b&gt;: The position of the payment solution in the checkout process.&lt;br /&gt;&#xD;
+	&lt;b&gt;Marketing - Coupon Mercado Pago&lt;/b&gt;: Enables/disables the coupon form.&lt;br /&gt;&#xD;
+&lt;/p&gt;&#xD;
 &#xD;
-- Different shipping methods per country can be enabled/disabled.&#xD;
+&lt;b&gt;Standard Checkout Payment Solution&lt;/b&gt;&#xD;
 &#xD;
-- Shipping cost is calculated and shown in cart page and checkout.&#xD;
+&lt;ol&gt;&#xD;
+	&lt;li&gt;Go to System &gt; Configuration &gt; Sales &gt; Payment Methods. Select Mercado Pago - Classic Checkout.Go to System &gt; Configuration &gt; Sales &gt; Payment Methods. Select Mercado Pago - Classic Checkout.&lt;/li&gt;&#xD;
+	&lt;li&gt;&#xD;
+		Enable the solution and set your Client Id and Client Secret. Get them in the following address: &#xD;
+		Argentina: &lt;a href="https://www.mercadopago.com/mla/herramientas/aplicaciones"&gt;https://www.mercadopago.com/mla/herramientas/aplicaciones&lt;/a&gt;&lt;br /&gt;&#xD;
+		Brazil: &lt;a href="https://www.mercadopago.com/mlb/ferramentas/aplicacoes"&gt;https://www.mercadopago.com/mlb/ferramentas/aplicacoes&lt;/a&gt;&lt;br /&gt;&#xD;
+		Chile: &lt;a href="https://www.mercadopago.com/mlc/herramientas/aplicaciones"&gt;https://www.mercadopago.com/mlc/herramientas/aplicaciones&lt;/a&gt;&lt;br /&gt;&#xD;
+		Colombia: &lt;a href="https://www.mercadopago.com/mco/herramientas/aplicaciones"&gt;https://www.mercadopago.com/mco/herramientas/aplicaciones&lt;/a&gt;&lt;br /&gt;&#xD;
+		Mexico: &lt;a href="https://www.mercadopago.com/mlm/herramientas/aplicaciones"&gt;https://www.mercadopago.com/mlm/herramientas/aplicaciones&lt;/a&gt;&lt;br /&gt;&#xD;
+		Venezuela: &lt;a href="https://www.mercadopago.com/mlv/herramientas/aplicaciones"&gt;https://www.mercadopago.com/mlv/herramientas/aplicaciones&lt;/a&gt;&lt;br /&gt;&#xD;
+	&lt;/li&gt;&#xD;
+	&lt;li&gt;&#xD;
+		Check the additional configurations: &lt;br /&gt;&#xD;
+		&lt;b&gt;Payment Title&lt;/b&gt;: Sets the payment title.&lt;br /&gt;&#xD;
+		&lt;b&gt;Banner Checkout&lt;/b&gt;: Sets the URL for the banner image in the payment method selection in the checkout process.&lt;br /&gt;&#xD;
+		&lt;b&gt;Checkout Position&lt;/b&gt;: The position of the payment solution in the checkout process.&lt;br /&gt;&#xD;
+		&lt;b&gt;Type Checkout&lt;/b&gt;: Sets the type of checkout, the options are:&lt;br /&gt;&#xD;
+		&lt;i&gt;Iframe&lt;/i&gt;: Opens a Magento URL with a iframe as the content.&lt;br /&gt;&#xD;
+		&lt;i&gt;Redirect&lt;/i&gt;: Redirects to Mercado Pago URL.&lt;br /&gt;&#xD;
+		&lt;i&gt;Lightbox&lt;/i&gt;: Similar to Iframe option but opens a lightbox instead of an iframe. &lt;br /&gt;&#xD;
+	&lt;/li&gt;&#xD;
+&lt;/ol&gt;&#xD;
 &#xD;
-- Free shipping option is available.&#xD;
 &#xD;
-- Tracking information order can be accessed through order details admin section or my account.&#xD;
+&lt;b&gt;MercadoEnvios&lt;/b&gt;&#xD;
 &#xD;
-- Shipping label can be printed through order details admin section."</notes>
-    <authors><author><name>Developers MercadoPago Brasil</name><user>developers_mercadopago</user><email>developers@mercadopago.com.br</email></author></authors>
-    <date>2016-03-31</date>
-    <time>21:27:23</time>
-    <contents><target name="magecommunity"><dir name="MercadoPago"><dir name="Core"><dir name="Block"><file name="AbstractForm.php" hash="37bbd650b14574dee9f1296bf67ffd10"/><file name="AbstractSuccess.php" hash="6aa920d8b886d22410f50b9625847699"/><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Fieldset"><file name="Payment.php" hash="af39cd4e8086b008f00bc987303e907a"/></dir></dir></dir></dir><dir name="Custom"><file name="Form.php" hash="733c5dccf752493b9fe24938433ff9fd"/><file name="Info.php" hash="51771218b04b7a41d83adec76e393311"/><file name="Success.php" hash="2ab918e6b2415018d780b1a58d5b6d04"/></dir><dir name="Customticket"><file name="Form.php" hash="6580496bc71be11e4c572e1e143557cf"/><file name="Info.php" hash="f23e8a204e431e95a7bb0e9b409c1df4"/><file name="Success.php" hash="325fc24f1c0d220a95abe238ec583ee5"/></dir><file name="Discount.php" hash="a17b7f08dd57c31d27e57b3acbe03188"/><dir name="Sales"><dir name="Order"><dir name="Totals"><dir name="Discount"><file name="Coupon.php" hash="4bd99d8954d154971b8b51b4318b5b1c"/></dir><dir name="Finance"><file name="Cost.php" hash="750c3c7ca6465439eff098f6ae912b6c"/></dir></dir></dir></dir><dir name="Standard"><file name="Form.php" hash="e6845e293d0c0ca1a6ac04acf79edd1e"/><file name="Info.php" hash="db81d01579b66fbd8251883967768320"/><file name="Pay.php" hash="8ebb3cd8ef5df082343cfe33eadf17e0"/><file name="Success.php" hash="409dd3e16db4ebd5bd22599b7271062c"/></dir></dir><dir name="Helper"><file name="Data.php" hash="ad91fcd07914aa07844303d8fb058b8d"/><dir name="Message"><file name="Abstract.php" hash="1f4f37e4a2cd0d1a18dff6f3e96ca84d"/></dir><file name="Response.php" hash="f247edf929e2d3c3fcfe7e7ea62629de"/><file name="StatusDetailMessage.php" hash="f56549a427452d4e67351274032885db"/><file name="StatusMessage.php" hash="3a7860b8dc843f8f9620852113fc5093"/><file name="StatusOrderMessage.php" hash="f17c394be7b8a795ee05342109c93fe4"/></dir><dir name="Model"><dir name="Api"><file name="Exception.php" hash="8093747fa6e2244c3f59a188911d47c3"/><dir name="V0"><file name="Exception.php" hash="026642775cab4873176aaf28493a9159"/></dir><dir name="V1"><file name="Exception.php" hash="022c7e5ff52d04a91990bdb230f97e73"/></dir></dir><file name="Core.php" hash="6c1e1a0b5f1c45d434a29b4d41de9e9d"/><dir name="Custom"><dir name="Finance"><dir name="Cost"><file name="Creditmemo.php" hash="4e75bb8d2c34e9758a27d9e9db3f6b36"/><file name="Invoice.php" hash="d8123b798f25c119739b9ac16817619c"/></dir><file name="Cost.php" hash="9fab08c5253d19b4106ef9070580f42e"/></dir><file name="Payment.php" hash="d6ffc621ce27ec6e96b3145bdd0d669c"/></dir><file name="CustomPayment.php" hash="d624d2b5bb16232be4c48dacd07b5d11"/><dir name="CustomTicket"><file name="Payment.php" hash="15a619e31be96f0cff76de029fc94c52"/></dir><dir name="Discount"><dir name="Coupon"><file name="Creditmemo.php" hash="87dc7aaac390633ddf87c27e3d097130"/><file name="Invoice.php" hash="a586d210a2b8b57a8dffe9fdb69b5363"/></dir><file name="Coupon.php" hash="54d8cbfb2fd73db87fbe3f93e483a8d8"/></dir><file name="Observer.php" hash="4cdf23a05a1652b8e67c92e8e59557f7"/><dir name="Source"><file name="CategoryId.php" hash="5728ee8c2bb1f41e10103c4ff4b939cb"/><file name="Country.php" hash="93b2efcbefc6e5ea925ca74a88af93f4"/><file name="Installments.php" hash="7c7efe8ef187ff1e2ab00bf7dbcc8cab"/><dir name="Order"><file name="Status.php" hash="4b0b5fadd551b0bc360ae53d99768cda"/></dir><file name="PaymentMethods.php" hash="c92ef487943fadd611ecad44d4d6c083"/><file name="TypeCheckout.php" hash="36496d11ce7fbb1d87f27eb705525b61"/></dir><dir name="Standard"><file name="Payment.php" hash="fe42f97ad53bf14db164350fd08617af"/></dir></dir><dir name="controllers"><file name="ApiController.php" hash="2901e45bb90b472bc81b0353c4acb824"/><file name="NotificationsController.php" hash="7b949c4c48081479db1e65882bd217c7"/><file name="PayController.php" hash="bfa751fb97ffd2d81bbffcc564d7cd0c"/><file name="SuccessController.php" hash="59da945d27a8b8b0ae102bd374415e9b"/></dir><dir name="etc"><file name="config.xml" hash="ec4c7f03e4e1dda852a46ec258913709"/><file name="system.xml" hash="0c474b71b67510d172753d3ba7703bc5"/></dir><dir name="sql"><dir name="mercadopago_setup"><file name="install-2.1.0.php" hash="12ecf80fa3ceaf2e4065bda76cf07a4d"/><file name="upgrade-2.1.0-2.1.1.php" hash="abf330b2171e90fc25f0cfe668bd051d"/><file name="upgrade-2.1.1-2.1.2.php" hash="805656e780e56feb6567c6c310bd9b7b"/></dir></dir></dir><dir name="MercadoEnvios"><dir name="Block"><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Fieldset"><file name="Carrier.php" hash="f8a32cf354e44f90e7ce9e64017438f9"/><file name="Mapping.php" hash="b00a1ff552b99b744d29365570b33257"/></dir></dir></dir></dir></dir><dir name="Helper"><file name="Data.php" hash="7733f94af70fe579cf15a9b9820cb83d"/><file name="ItemData.php" hash="ec05bfdc7839e3d1af6089fd0ec17e83"/></dir><dir name="Model"><dir name="Adminhtml"><dir name="Attribute"><dir name="Validation"><file name="Mapping.php" hash="9cfa77a4c45541a7dc2034ac7624ec01"/></dir></dir><dir name="Source"><dir name="Shipping"><file name="FreeMethod.php" hash="e8740f8d1b3a67c8cee79b77e40cf7db"/><file name="Method.php" hash="ca97b54ee9883c302ef871a8d3ce5fd0"/></dir></dir></dir><file name="Observer.php" hash="5957f95082a0e266799042b1ee1802bd"/><dir name="Shipping"><dir name="Carrier"><file name="MercadoEnvios.php" hash="508cb199e8b98b0dbbae6fd27923b26b"/></dir></dir></dir><dir name="etc"><file name="config.xml" hash="0b87ade9a5cf02b276c571d0e585b138"/><file name="system.xml" hash="17b5096fb89d95e8c05345ee96cc4e7d"/></dir></dir><dir name="OneStepCheckout"><dir name="Block"><dir name="Custom"><file name="Form.php" hash="c3c4d2230eddeca0e49098161b5d5617"/></dir><dir name="Customticket"><file name="Form.php" hash="9deffc44f4ae97765ba02a4885dbe7e5"/></dir></dir><dir name="Helper"><file name="Data.php" hash="c0a0af8a83dc71a0ccf1a5f1a3235c8a"/></dir><dir name="Model"><file name="Observer.php" hash="2cfb65eada297e55f59cc490507bd4e3"/></dir><dir name="etc"><file name="config.xml" hash="9e77435b615d9a66379102527a85287f"/><file name="system.xml" hash="0285d96e5edfd8c65773f1d395734a5c"/></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="template"><dir name="mercadopago"><file name="array_dropdown.phtml" hash="84c83c98f33de9530517adeb391011ab"/><dir name="custom"><file name="info.phtml" hash="c1a6c2f8725f5e3c49acefdce87d6ba3"/></dir><dir name="custom_ticket"><file name="info.phtml" hash="1c9a896cbd7d2539c2d142fa579f2d90"/></dir><dir name="standard"><file name="info.phtml" hash="c1a6c2f8725f5e3c49acefdce87d6ba3"/></dir></dir></dir><dir name="layout"><file name="mercadopago.xml" hash="3c49e00ad8174bde8e10eb7ac4a72348"/></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="template"><dir name="mercadopago"><file name="clean.phtml" hash="fc92035839e69f52192eb9c3063a6864"/><dir name="custom"><file name="form.phtml" hash="b659c97b38dc9b5b9f7ed20c615225b6"/><file name="info.phtml" hash="70a72da32d8d0a952bb6bf3e21df1100"/><file name="success.phtml" hash="614035e4ff43696920090860c42de887"/></dir><dir name="custom_ticket"><file name="form.phtml" hash="763c1c6ef5f86a6c1cfffc62de5779d4"/><file name="info.phtml" hash="ab580075fca55962463cbb17628b736d"/><file name="success.phtml" hash="6f2e63745368af0e0b6987274022d14a"/></dir><file name="discount.phtml" hash="310ed2fcc7620c97002e4af155c5aecc"/><dir name="onestepcheckout"><dir name="custom"><file name="form.phtml" hash="179df6e2db3765c254f080dfd2d39646"/></dir></dir><dir name="standard"><file name="form.phtml" hash="089687bb6550b9cd36dbb8b15b6cb493"/><file name="info.phtml" hash="70a72da32d8d0a952bb6bf3e21df1100"/><file name="pay.phtml" hash="3e3b83363e355778b98908847a56ab28"/><file name="success.phtml" hash="1cf80826a9c896ff3d4abf68ab579d34"/></dir></dir></dir><dir name="layout"><file name="mercadopago.xml" hash="473e1f06bf5cf3d1793819d9ab72064f"/></dir></dir></dir></dir></target><target name="magelib"><dir name="MercadoPago"><dir name="Lib"><file name="Api.php" hash="83c779aded928366abe82ea54a3fab6c"/><file name="RestClient.php" hash="13d49937d6ba8b7e245179c74a762940"/></dir></dir></target><target name="mageskin"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="mercadopago"><dir name="images"><file name="cards.jpg" hash="53b06cbec7b20d95cdcaaf3b49bd2aa5"/><file name="logo.png" hash="460a0815c67a23da265f42c8bab0842a"/><file name="mercadoenvios.png" hash="006cd6ddfa8e5a19354942f79b659b5e"/></dir><file name="styles.css" hash="cac25e698c010f73dc3af01ef3377320"/></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="mercadopago"><dir name="css"><file name="style-success.css" hash="2780801704d278d22aff40cf333f4cf4"/><file name="style.css" hash="5d034d69a742236f658e969c1a1a7e07"/></dir><dir name="images"><file name="loading.gif" hash="5c43434f066c2fbc4714c768b8f83853"/></dir></dir></dir></dir></dir></target><target name="mageweb"><dir name="js"><dir name="mercadopago"><file name="jquery-1.11.0.min.js" hash="52d16e147b5346147d0f3269cd4d0f80"/><file name="mercadopago.js" hash="5e0ac973773787c704add38fce02d582"/><file name="mercadopago_osc.js" hash="12c556d552612e3706dcbe22ff96bf5b"/><file name="tiny.min.js" hash="71bce92ef942b0ac15683f94e1f3e3a5"/><file name="tinyJ.js" hash="3318ec214b9a21fe954ce5675de013f3"/></dir></dir></target><target name="mageetc"><dir name="modules"><file name="MercadoPago_Core.xml" hash="0770f2e1dd0110c2c13a330d3411fd68"/><file name="MercadoPago_MercadoEnvios.xml" hash="f7e8607c78d8b39075eb8f7700691a44"/><file name="MercadoPago_OneStepCheckout.xml" hash="9e05c392d8f00c9604ac9ad748977489"/></dir></target><target name="magelocale"><dir name="en_US"><file name="MercadoPago_Core.csv" hash="35cb0e856ef1af496e3ebf068f53d248"/></dir><dir name="es_AR"><file name="MercadoPago_Core.csv" hash="c0364c2897611efa166269adc440de77"/></dir><dir name="es_CL"><file name="MercadoPago_Core.csv" hash="ddfb3f0ff551fbf3350e1321d6d0bd3e"/></dir><dir name="es_CO"><file name="MercadoPago_Core.csv" hash="7057e0579c38432fa14f2446742f650a"/></dir><dir name="es_ES"><file name="MercadoPago_Core.csv" hash="11251df16d82efb3490bbc14a7d97c35"/></dir><dir name="es_MX"><file name="MercadoPago_Core.csv" hash="dcfd9c8d0573a15ecaeb52fca9518883"/></dir><dir name="es_VE"><file name="MercadoPago_Core.csv" hash="5586a0b0fe01d82e3a55ece73d09ff13"/></dir><dir name="pt_BR"><file name="MercadoPago_Core.csv" hash="77bd45ae846221de01c0cda4c8fe5b3c"/></dir></target></contents>
+&lt;p&gt;In order to setup MercadoEnvios follow these instructions: &#xD;
+	&lt;ol&gt;&#xD;
+		&lt;li&gt;Setup MercadoPago Standard Checkout. &lt;/li&gt;&#xD;
+		&lt;li&gt;Go to System &gt; Configuration &gt; Sales &gt; Shipping Methods &gt; MercadoEnvios. &lt;/li&gt;&#xD;
+		&lt;li&gt;&#xD;
+			Setup the plugin: &lt;br /&gt;&#xD;
+			&lt;b&gt;Enabled&lt;/b&gt;: Enables/disables this MercadoEnvios solution.&lt;br /&gt;&#xD;
+			&lt;b&gt;Title&lt;/b&gt;: Sets up the shipping method label displayed in the shipping section in checkout process.&lt;br /&gt;&#xD;
+			&lt;b&gt;Product attributes mapping&lt;/b&gt;: Maps the system attributes with the dimensions and weight. Also allows to set up the attribute unit.&lt;br /&gt;&#xD;
+			&lt;b&gt;Available shipping methods&lt;/b&gt;: Sets up the shipping options visible in the checkout process.&lt;br /&gt;&#xD;
+			&lt;b&gt;Free Method&lt;/b&gt;: Sets up the method to use as free shipping.&lt;br /&gt;&#xD;
+			&lt;b&gt;Free Shipping with Minimum Order Amount&lt;/b&gt;: Enables/disables the order minimum for free shipping to be available.&lt;br /&gt;&#xD;
+			&lt;b&gt;Show method if not applicable&lt;/b&gt;: If enabled, the shipping method is displayed when it's not available.&lt;br /&gt;&#xD;
+			&lt;b&gt;Displayed Error Message&lt;/b&gt;: Sets up the text to be displayed when the shipping method is not available.&lt;br /&gt;&#xD;
+			&lt;b&gt;Debug Mode&lt;/b&gt;: If enabled, displays the raw response from the API instead of a friendly message.&lt;br /&gt;&#xD;
+			&lt;b&gt;Sort order&lt;/b&gt;: Sets up the sort order to be displayed in the shipping step in checkout process.&lt;br /&gt;&#xD;
+		&lt;/li&gt;&#xD;
+	&lt;/ol&gt;&#xD;
+&lt;/p&gt;&#xD;
+</description>
+    <notes>- Fix issue with multiple notifications&#xD;
+- Fix issue with approved tickets notifications&#xD;
+- Change logic for shipments calculation&#xD;
+- Add option include/exclude financing cost from the orders&#xD;
+- Fix other minor issues</notes>
+    <authors><author><name>MercadoPago</name><user>MercadoPago</user><email>developer@mercadopago.com.br</email></author></authors>
+    <date>2016-06-08</date>
+    <time>19:30:51</time>
+    <contents><target name="magecommunity"><dir name="MercadoPago"><dir><dir name="Core"><dir name="Block"><file name="AbstractForm.php" hash="37bbd650b14574dee9f1296bf67ffd10"/><file name="AbstractSuccess.php" hash="6aa920d8b886d22410f50b9625847699"/><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Fieldset"><file name="Payment.php" hash="5ecbfb51b488a3e3211dfaec5d8c0efe"/></dir></dir></dir></dir><dir name="Custom"><file name="Form.php" hash="733c5dccf752493b9fe24938433ff9fd"/><file name="Info.php" hash="51771218b04b7a41d83adec76e393311"/><file name="Success.php" hash="2ab918e6b2415018d780b1a58d5b6d04"/></dir><dir name="Customticket"><file name="Form.php" hash="6580496bc71be11e4c572e1e143557cf"/><file name="Info.php" hash="f23e8a204e431e95a7bb0e9b409c1df4"/><file name="Success.php" hash="325fc24f1c0d220a95abe238ec583ee5"/></dir><file name="Discount.php" hash="a17b7f08dd57c31d27e57b3acbe03188"/><dir name="Sales"><dir name="Order"><dir name="Totals"><dir name="Discount"><file name="Coupon.php" hash="4bd99d8954d154971b8b51b4318b5b1c"/></dir><dir name="Finance"><file name="Cost.php" hash="750c3c7ca6465439eff098f6ae912b6c"/></dir></dir></dir></dir><dir name="Standard"><file name="Form.php" hash="e6845e293d0c0ca1a6ac04acf79edd1e"/><file name="Info.php" hash="db81d01579b66fbd8251883967768320"/><file name="Pay.php" hash="8ebb3cd8ef5df082343cfe33eadf17e0"/><file name="Success.php" hash="409dd3e16db4ebd5bd22599b7271062c"/></dir></dir><dir name="Helper"><file name="Data.php" hash="9d885a9cc09e291eaa1cc31d587be611"/><dir name="Message"><file name="Abstract.php" hash="1f4f37e4a2cd0d1a18dff6f3e96ca84d"/></dir><file name="Response.php" hash="f247edf929e2d3c3fcfe7e7ea62629de"/><file name="StatusDetailMessage.php" hash="f56549a427452d4e67351274032885db"/><file name="StatusMessage.php" hash="3a7860b8dc843f8f9620852113fc5093"/><file name="StatusOrderMessage.php" hash="f17c394be7b8a795ee05342109c93fe4"/></dir><dir name="Model"><dir name="Api"><file name="Exception.php" hash="8093747fa6e2244c3f59a188911d47c3"/><dir name="V0"><file name="Exception.php" hash="026642775cab4873176aaf28493a9159"/></dir><dir name="V1"><file name="Exception.php" hash="022c7e5ff52d04a91990bdb230f97e73"/></dir></dir><file name="Core.php" hash="9c31aba9695d4d1137f59a3f05ad0b80"/><dir name="Custom"><dir name="Finance"><dir name="Cost"><file name="Creditmemo.php" hash="4e75bb8d2c34e9758a27d9e9db3f6b36"/><file name="Invoice.php" hash="d8123b798f25c119739b9ac16817619c"/></dir><file name="Cost.php" hash="9fab08c5253d19b4106ef9070580f42e"/></dir><file name="Payment.php" hash="aab8fd3fc058c1fde9a75f1c3367df7a"/></dir><file name="CustomPayment.php" hash="bc92b4a75716d1fab5c30ae2240c127d"/><dir name="CustomTicket"><file name="Payment.php" hash="b5a003f1e646d25bb5b5b527634600a9"/></dir><dir name="Discount"><dir name="Coupon"><file name="Creditmemo.php" hash="87dc7aaac390633ddf87c27e3d097130"/><file name="Invoice.php" hash="a586d210a2b8b57a8dffe9fdb69b5363"/></dir><file name="Coupon.php" hash="54d8cbfb2fd73db87fbe3f93e483a8d8"/></dir><file name="Observer.php" hash="17a28a9a435e52313e32a4eb8dc4a8e8"/><dir name="Source"><file name="CategoryId.php" hash="5728ee8c2bb1f41e10103c4ff4b939cb"/><file name="Country.php" hash="93b2efcbefc6e5ea925ca74a88af93f4"/><file name="Installments.php" hash="7c7efe8ef187ff1e2ab00bf7dbcc8cab"/><dir name="Order"><file name="Status.php" hash="4b0b5fadd551b0bc360ae53d99768cda"/></dir><file name="PaymentMethods.php" hash="7c9809f0485a59f4a430dbcd9e351145"/><file name="TypeCheckout.php" hash="36496d11ce7fbb1d87f27eb705525b61"/></dir><dir name="Standard"><file name="Payment.php" hash="8d83831d8225e183a5f0ec641e099ae8"/></dir></dir><dir name="controllers"><file name="ApiController.php" hash="2901e45bb90b472bc81b0353c4acb824"/><file name="NotificationsController.php" hash="296713860c1f6c43167cdddea775c44f"/><file name="PayController.php" hash="bfa751fb97ffd2d81bbffcc564d7cd0c"/><file name="SuccessController.php" hash="3a7eeede5d6bdb1f770b019bb2c71af6"/></dir><dir name="etc"><file name="config.xml" hash="147411e7fb1c3521d351abb3af8afc32"/><file name="system.xml" hash="9978d82377aed7c6a3f943f89c12ad9f"/></dir><dir name="sql"><dir name="mercadopago_setup"><file name="install-2.1.0.php" hash="12ecf80fa3ceaf2e4065bda76cf07a4d"/><file name="upgrade-2.1.0-2.1.1.php" hash="abf330b2171e90fc25f0cfe668bd051d"/><file name="upgrade-2.1.1-2.1.2.php" hash="805656e780e56feb6567c6c310bd9b7b"/></dir></dir></dir><dir name="MercadoEnvios"><dir name="Block"><dir name="Adminhtml"><dir name="System"><dir name="Config"><dir name="Fieldset"><file name="Carrier.php" hash="f8a32cf354e44f90e7ce9e64017438f9"/><file name="Mapping.php" hash="b00a1ff552b99b744d29365570b33257"/></dir></dir></dir></dir></dir><dir name="Helper"><file name="CarrierData.php" hash="4532a9efcec29f1106569e4a63ab2a1b"/><file name="Data.php" hash="6b997724247f93ed51031254e5884989"/><file name="ItemData.php" hash="ec05bfdc7839e3d1af6089fd0ec17e83"/></dir><dir name="Model"><dir name="Adminhtml"><dir name="Attribute"><dir name="Validation"><file name="Mapping.php" hash="9cfa77a4c45541a7dc2034ac7624ec01"/></dir></dir><dir name="Source"><dir name="Shipping"><file name="FreeMethod.php" hash="e8740f8d1b3a67c8cee79b77e40cf7db"/><file name="Method.php" hash="f0dde5407e7b8efb31c6e71065138800"/><dir name="Print"><file name="Mode.php" hash="70f65b1c619863cbabe81086a13d1896"/></dir></dir></dir></dir><file name="Observer.php" hash="832bea83bb1930666dfcfc4fbcd61a54"/><dir name="Shipping"><dir name="Carrier"><file name="MercadoEnvios.php" hash="ffa13a64f24cb02ff52512b6b3212e3d"/></dir></dir></dir><dir name="etc"><file name="config.xml" hash="4500ab15c34b3bd2ddf5385e751984e6"/><file name="system.xml" hash="03bf9f1b99e2db15a8365f8ecf12cc31"/></dir></dir><dir name="OneStepCheckout"><dir name="Block"><dir name="Custom"><file name="Form.php" hash="34033d6813650d77c75c8c3e9a9cd88a"/></dir><dir name="Customticket"><file name="Form.php" hash="9deffc44f4ae97765ba02a4885dbe7e5"/></dir></dir><dir name="Helper"><file name="Data.php" hash="c0a0af8a83dc71a0ccf1a5f1a3235c8a"/></dir><dir name="Model"><file name="Observer.php" hash="2cfb65eada297e55f59cc490507bd4e3"/></dir><dir name="etc"><file name="config.xml" hash="851b80b4d234473a059df7525945bd1b"/><file name="system.xml" hash="0285d96e5edfd8c65773f1d395734a5c"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="mercadopago.xml" hash="3c49e00ad8174bde8e10eb7ac4a72348"/></dir><dir name="template"><dir name="mercadopago"><file name="array_dropdown.phtml" hash="84c83c98f33de9530517adeb391011ab"/><dir name="custom"><file name="info.phtml" hash="c1a6c2f8725f5e3c49acefdce87d6ba3"/></dir><dir name="custom_ticket"><file name="info.phtml" hash="1c9a896cbd7d2539c2d142fa579f2d90"/></dir><dir name="standard"><file name="info.phtml" hash="c1a6c2f8725f5e3c49acefdce87d6ba3"/></dir></dir></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="mercadopago.xml" hash="473e1f06bf5cf3d1793819d9ab72064f"/></dir><dir name="template"><dir name="mercadopago"><file name="clean.phtml" hash="fc92035839e69f52192eb9c3063a6864"/><dir name="custom"><file name="form.phtml" hash="962ab03a2d47c1495623bdbd787122d2"/><file name="info.phtml" hash="70a72da32d8d0a952bb6bf3e21df1100"/><file name="success.phtml" hash="614035e4ff43696920090860c42de887"/></dir><dir name="custom_ticket"><file name="form.phtml" hash="763c1c6ef5f86a6c1cfffc62de5779d4"/><file name="info.phtml" hash="ab580075fca55962463cbb17628b736d"/><file name="success.phtml" hash="6f2e63745368af0e0b6987274022d14a"/></dir><file name="discount.phtml" hash="310ed2fcc7620c97002e4af155c5aecc"/><dir name="onestepcheckout"><dir name="custom"><file name="form.phtml" hash="b5b363ae0814816a6c7a416d9ed7dd16"/></dir></dir><dir name="standard"><file name="form.phtml" hash="089687bb6550b9cd36dbb8b15b6cb493"/><file name="info.phtml" hash="70a72da32d8d0a952bb6bf3e21df1100"/><file name="pay.phtml" hash="3e3b83363e355778b98908847a56ab28"/><file name="success.phtml" hash="1cf80826a9c896ff3d4abf68ab579d34"/></dir></dir></dir></dir></dir></dir></target><target name="magelocale"><dir name="en_US"><file name="MercadoPago_Core.csv" hash="c9ef509e6285928195787f6c393fa1b4"/></dir><dir name="es_AR"><file name="MercadoPago_Core.csv" hash="a25b190f8051d3041240a19f65404a61"/></dir><dir name="es_CL"><file name="MercadoPago_Core.csv" hash="9410f5fd291807b737f302627ee4f149"/></dir><dir name="es_CO"><file name="MercadoPago_Core.csv" hash="6f2937031991436f3653df27e8cd0241"/></dir><dir name="es_ES"><file name="MercadoPago_Core.csv" hash="9d8b8df4d5507352910c69032d392844"/></dir><dir name="es_MX"><file name="MercadoPago_Core.csv" hash="446c5a20320c5f562bb81d0b31088cfb"/></dir><dir name="es_VE"><file name="MercadoPago_Core.csv" hash="db3ca60c5518afcfaaf8c7c630d15f12"/></dir><dir name="pt_BR"><file name="MercadoPago_Core.csv" hash="d96a1558aace434cd42e0594bc697e6f"/></dir></target><target name="mageweb"><dir name="js"><dir name="mercadopago"><file name="jquery-1.11.0.min.js" hash="52d16e147b5346147d0f3269cd4d0f80"/><file name="mercadopago.js" hash="ae8b99b1740a3133500d07a16ced5add"/><file name="mercadopago_osc.js" hash="ffa5957d037299812ccb4d08ef5799ec"/><file name="tiny.min.js" hash="71bce92ef942b0ac15683f94e1f3e3a5"/><file name="tinyJ.js" hash="3318ec214b9a21fe954ce5675de013f3"/></dir></dir></target><target name="mageskin"><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="mercadopago"><dir name="images"><file name="cards.jpg" hash="53b06cbec7b20d95cdcaaf3b49bd2aa5"/><file name="logo.png" hash="460a0815c67a23da265f42c8bab0842a"/><file name="mercadoenvios.png" hash="006cd6ddfa8e5a19354942f79b659b5e"/></dir><file name="styles.css" hash="cac25e698c010f73dc3af01ef3377320"/></dir></dir></dir></dir><dir name="frontend"><dir name="base"><dir name="default"><dir name="mercadopago"><dir name="css"><file name="style-success.css" hash="2780801704d278d22aff40cf333f4cf4"/><file name="style.css" hash="5d034d69a742236f658e969c1a1a7e07"/></dir><dir name="images"><file name="loading.gif" hash="5c43434f066c2fbc4714c768b8f83853"/></dir></dir></dir></dir></dir></target><target name="magelib"><dir name="MercadoPago"><dir name="Lib"><file name="Api.php" hash="83c779aded928366abe82ea54a3fab6c"/><file name="RestClient.php" hash="13d49937d6ba8b7e245179c74a762940"/></dir></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+    <dependencies><required><php><min>5.4.0</min><max>5.5.0</max></php></required></dependencies>
 </package>
