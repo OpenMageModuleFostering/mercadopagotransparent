@@ -21,24 +21,41 @@ class MercadoPago_Core_Helper_StatusUpdate
         return $this->_statusUpdatedFlag;
     }
 
-    public function setStatusUpdated($notificationData, $order)
+    public function setStatusUpdated($notificationData, $order, $isPayment = false)
     {
         $this->_order = $order;
         $status = $notificationData['status'];
         $statusDetail = $notificationData['status_detail'];
         $currentStatus = $this->_order->getPayment()->getAdditionalInformation('status');
         $currentStatusDetail = $this->_order->getPayment()->getAdditionalInformation('status_detail');
+        if ($isPayment) {
+            $currentStatus = $this->_getMulticardLastValue($currentStatus);
+            $currentStatusDetail = $this->_getMulticardLastValue($currentStatusDetail);
+        }
+        if (!is_null($order->getPayment()) && $order->getPayment()->getAdditionalInformation('is_second_card_used')) {
+            $this->_statusUpdatedFlag = false;
+
+            return;
+        }
         if ($status == $currentStatus && $statusDetail == $currentStatusDetail) {
             $this->_statusUpdatedFlag = true;
         }
     }
 
+    protected function _getMulticardLastValue($value)
+    {
+        $statuses = explode('|', $value);
+
+        return str_replace(' ', '', array_pop($statuses));
+    }
+
     protected function _updateStatus($status, $message, $statusDetail)
     {
-        if ($this->_order->getState() !== Mage_Sales_Model_Order::STATE_COMPLETE) {
+        if ($this->_order->getState() !== Mage_Sales_Model_Order::STATE_COMPLETE
+        ) {
             $statusOrder = $this->getStatusOrder($status, $statusDetail);
 
-            if (isset($statusOrder)) {
+            if (isset($statusOrder) && ($this->_order->getStatus() !== $statusOrder)) {
                 $this->_order->setState($this->_getAssignedState($statusOrder));
                 $this->_order->addStatusToHistory($statusOrder, $message, true);
                 $this->_order->sendOrderUpdateEmail(true, $message);
@@ -72,7 +89,8 @@ class MercadoPago_Core_Helper_StatusUpdate
         }
     }
 
-    protected function _createCreditmemo ($data) {
+    protected function _createCreditmemo($data)
+    {
         /**
          * @var $creditmemo Mage_Sales_Model_Order_Creditmemo
          */
@@ -116,41 +134,21 @@ class MercadoPago_Core_Helper_StatusUpdate
         }
     }
 
-    public function update($payment, $message) {
-        $status = $payment['status'];
-        $statusDetail = $payment['status_detail'];
-
-        if ($status == 'approved') {
-            Mage::helper('mercadopago')->setOrderSubtotals($payment, $this->_order);
-            $this->_createInvoice($this->_order, $message);
-            //Associate card to customer
-            $additionalInfo = $this->_order->getPayment()->getAdditionalInformation();
-            if (isset($additionalInfo['token'])) {
-                Mage::getModel('mercadopago/custom_payment')->customerAndCards($additionalInfo['token'], $payment);
-            }
-        }
-
-        if (isset($payment['amount_refunded']) && $payment['amount_refunded'] > 0) {
-            $this->_generateCreditMemo($payment);
-        } elseif ($status == 'cancelled') {
-            Mage::register('mercadopago_cancellation', true);
-            $this->_order->cancel();
-        }
-        else {
-            //if state is not complete updates according to setting
-            $this->_updateStatus($status, $message, $statusDetail);
-        }
-        return $this->_order->save();
-    }
-
     public function setStatusOrder($payment)
     {
         $helper = Mage::helper('mercadopago');
-
         $status = $this->getStatus($payment);
+
         $message = $this->getMessage($status, $payment);
-        if ($this->isStatusUpdated() && isset ($payment['amount_refunded']) && !($payment['amount_refunded'] > 0)) {
-            return ['body' => $message, 'code' => MercadoPago_Core_Helper_Response::HTTP_OK];
+        if ($this->isStatusUpdated()) {
+            if (!(isset($payment['amount_refunded']) && ($payment['amount_refunded'] > 0))) {
+                if (!(isset($payment['refunds']) && count($payment['refunds']) > 0)) {
+                    if ($this->_order->getPayment()->getAdditionalInformation('is_second_card_used')) {
+                        //if status is updated, there are no refunds and no custom payments with two cards.
+                        return ['body' => $message, 'code' => MercadoPago_Core_Helper_Response::HTTP_OK];
+                    }
+                }
+            }
         }
 
         try {
@@ -164,6 +162,51 @@ class MercadoPago_Core_Helper_StatusUpdate
             $helper->log("error in set order status: " . $e, 'mercadopago.log');
 
             return ['body' => $e, 'code' => MercadoPago_Core_Helper_Response::HTTP_BAD_REQUEST];
+        }
+    }
+
+    public function update($payment, $message)
+    {
+        $statusDetail = $payment['status_detail'];
+        $status = $payment['status'];
+        $infoPayments = $this->_order->getPayment()->getAdditionalInformation();
+        if ($this->_getMulticardLastValue($status) == 'approved') {
+            $this->_handleTwoCards($payment, $infoPayments);
+
+            Mage::helper('mercadopago')->setOrderSubtotals($payment, $this->_order);
+            $this->_createInvoice($this->_order, $message);
+            //Associate card to customer
+            $additionalInfo = $this->_order->getPayment()->getAdditionalInformation();
+            if (isset($additionalInfo['token'])) {
+                Mage::getModel('mercadopago/custom_payment')->customerAndCards($additionalInfo['token'], $payment);
+            }
+        }
+
+        if (isset($infoPayments['first_payment_id']) &&
+            !($infoPayments['first_payment_status'] == 'approved' && $infoPayments['second_payment_status'] == 'approved')
+        ) {
+            return $this->_order->save();
+        }
+
+        if (isset($payment['amount_refunded']) && $payment['amount_refunded'] > 0) {
+            $this->_generateCreditMemo($payment);
+        } elseif ($status == 'cancelled') {
+            Mage::register('mercadopago_cancellation', true);
+            $this->_order->cancel();
+        } else {
+            //if state is not complete updates according to setting
+            $this->_updateStatus($status, $message, $statusDetail);
+        }
+
+        return $this->_order->save();
+    }
+
+    protected function _handleTwoCards(&$payment, $infoPayments)
+    {
+        if (isset($infoPayments['is_second_card_used']) && $infoPayments['is_second_card_used'] === "true") {
+            $payment['total_paid_amount'] = $infoPayments['total_paid_amount'];
+            $payment['transaction_amount'] = $infoPayments['transaction_amount'];
+            $payment['status'] = $infoPayments['status'];
         }
     }
 
@@ -193,7 +236,7 @@ class MercadoPago_Core_Helper_StatusUpdate
 
     public function getStatusOrder($status, $statusDetail)
     {
-        switch ($status) {
+        switch ($this->_getMulticardLastValue($status)) {
             case 'approved': {
                 $status = Mage::getStoreConfig('payment/mercadopago/order_status_approved');
 
@@ -307,5 +350,81 @@ class MercadoPago_Core_Helper_StatusUpdate
             $invoice->sendEmail(true, $message);
         }
     }
+
+    /**
+     * @param $data
+     * @param $payment
+     * @param $logFile
+     *
+     * Update $data with the information in the payment.
+     * if it has more than one payment, the information is concatenated by separating the data with a '|'
+     *
+     * @return mixed
+     */
+    public function formatArrayPayment($data, $payment, $logFile)
+    {
+        Mage::helper('mercadopago')->log("Format Array", $logFile);
+
+        $fields = [
+            "status",
+            "status_detail",
+            "payment_id_detail",
+            "id",
+            "payment_method_id",
+            "transaction_amount",
+            "total_paid_amount",
+            "coupon_amount",
+            "installments",
+            "shipping_cost",
+            "amount_refunded"
+         ];
+
+        foreach ($fields as $field) {
+            if (isset($payment[$field])) {
+                if (isset($data[$field])) {
+                    $data[$field] .= " | " . $payment[$field];
+                } else {
+                    $data[$field] = $payment[$field];
+                }
+            }
+        }
+        $data = $this->_updateAtributesData($data, $payment);
+
+        $data['external_reference'] = $payment['external_reference'];
+        $data['payer_first_name'] = $payment['payer']['first_name'];
+        $data['payer_last_name'] = $payment['payer']['last_name'];
+        $data['payer_email'] = $payment['payer']['email'];
+
+        return $data;
+    }
+
+    protected function _updateAtributesData($data, $payment){
+        if (isset($payment["last_four_digits"])) {
+            if (isset($data["trunc_card"])) {
+                $data["trunc_card"] .= " | " . "xxxx xxxx xxxx " . $payment["last_four_digits"];
+            } else {
+                $data["trunc_card"] = "xxxx xxxx xxxx " . $payment["last_four_digits"];
+            }
+        }
+
+        if (isset($payment['cardholder']['name'])) {
+            if (isset($data["cardholder_name"])) {
+                $data["cardholder_name"] .= " | " . $payment["cardholder"]["name"];
+            } else {
+                $data["cardholder_name"] = $payment["cardholder"]["name"];
+            }
+        }
+
+        if (isset($payment['statement_descriptor'])) {
+            $data['statement_descriptor'] = $payment['statement_descriptor'];
+        }
+
+        if (isset($payment['merchant_order_id'])) {
+            $data['merchant_order_id'] = $payment['merchant_order_id'];
+        }
+
+        return $data;
+    }
+
 
 }

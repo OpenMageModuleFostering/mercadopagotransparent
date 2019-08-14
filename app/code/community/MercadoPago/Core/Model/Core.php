@@ -26,7 +26,7 @@ class MercadoPago_Core_Model_Core
     protected $_canOrder = true;
     protected $_canRefund = true;
     protected $_canVoid = true;
-    protected $_canUseInternal = true;
+    protected $_canUseInternal = false;
     protected $_canUseCheckout = true;
     protected $_canUseForMultishipping = true;
     protected $_canFetchTransactionInfo = true;
@@ -103,6 +103,8 @@ class MercadoPago_Core_Model_Core
             ["field" => "status_detail", "title" => "Payment Detail: %s"],
             ["field" => "activation_uri", "title" => "Generate Ticket"],
             ["field" => "payment_id_detail", "title" => "Mercado Pago Payment Id: %s"],
+            ["field" => "id", "title" => "Collection Id: %s"],
+
         ];
 
         foreach ($fields as $field) {
@@ -255,7 +257,11 @@ class MercadoPago_Core_Model_Core
 
         $preference['notification_url'] = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK) . "mercadopago/notifications/custom";
         $preference['description'] = Mage::helper('mercadopago')->__("Order # %s in store %s", $orderId, Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_LINK, true));
-        $preference['transaction_amount'] = (float)$this->getAmount();
+        if (isset($paymentInfo['transaction_amount'])) {
+            $preference['transaction_amount'] = (float)$paymentInfo['transaction_amount'];
+        } else {
+            $preference['transaction_amount'] = (float)$this->getAmount();
+        }
 
         $preference['external_reference'] = $orderId;
         $preference['payer']['email'] = $customerInfo['email'];
@@ -478,15 +484,10 @@ class MercadoPago_Core_Model_Core
                 'trunc_card',
                 'id'
             ];
-
-            foreach ($additionalFields as $field) {
-                if (isset($data[$field])) {
-                    $paymentOrder->setAdditionalInformation($field, $data[$field]);
-                }
-            }
-
-            if (isset($data['payment_method_id'])) {
-                $paymentOrder->setAdditionalInformation('payment_method', $data['payment_method_id']);
+            
+            $infoPayments = $paymentOrder->getAdditionalInformation();
+            if (!isset($infoPayments['first_payment_id'])) {
+                $paymentOrder = $this->_addAdditionalInformationToPaymentOrder($data, $additionalFields, $paymentOrder);
             }
 
             $paymentStatus = $paymentOrder->save();
@@ -502,6 +503,23 @@ class MercadoPago_Core_Model_Core
         }
     }
 
+    protected function _addAdditionalInformationToPaymentOrder($data, $additionalFields, $paymentOrder){
+        foreach ($additionalFields as $field) {
+            if (isset($data[$field])) {
+                $paymentOrder->setAdditionalInformation($field, $data[$field]);
+            }
+        }
+
+        if (isset($data['payment_method_id'])) {
+            $paymentOrder->setAdditionalInformation('payment_method', $data['payment_method_id']);
+        }
+
+        if (isset($data['merchant_order_id'])) {
+            $paymentOrder->setAdditionalInformation('merchant_order_id', $data['merchant_order_id']);
+        }
+        return $paymentOrder;
+    }
+
     protected function _saveTransaction($data, $paymentOrder)
     {
         try {
@@ -514,6 +532,17 @@ class MercadoPago_Core_Model_Core
         } catch (Exception $e) {
             Mage::helper('mercadopago')->log('error in update order status: ' . $e, 'mercadopago.log');
         }
+    }
+
+    public function getRecurringPayment($id)
+    {
+        if (!$this->_clientId || !$this->_clientSecret) {
+            $this->_clientId = Mage::getStoreConfig(MercadoPago_Core_Helper_Data::XML_PATH_CLIENT_ID);
+            $this->_clientSecret = Mage::getStoreConfig(MercadoPago_Core_Helper_Data::XML_PATH_CLIENT_SECRET);
+        }
+        $mp = Mage::helper('mercadopago')->getApiInstance($this->_clientId, $this->_clientSecret);
+
+        return $mp->get_preapproval_payment($id);
     }
 
 }
