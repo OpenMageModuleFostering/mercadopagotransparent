@@ -37,13 +37,16 @@
 "Category of your store","Categoria de la tienda"
 
 "Calculate Financing Cost", "Calcular el costo de financiamiento"
+"Consider Discounts","Considerar descuentos"
+"Consider discount of Mercado Pago to invoicing","Considerar descuento de Mercado Pago en la facturación"
 "Order Status Options","Opciones de estado de los pedidos"
 "Choose the status of approved orders","Elija el estado de los pedidos para pagos Aprobados"
 "Choose the status of refunded orders","Elija el estado de los pedidos para pagos Devueltos"
 "Choose the status when payment is pending","Elija el estado de los pedidos para pagos Pendientes"
 "Choose the status when client open a mediation","Elija el estado de los pedidos para pagos en Disputa"
-"Choose the status when payment was reject","Elija el estado de los pedidos para pagos Rechazados"
+"Choose the status when payment was rejected","Elija el estado de los pedidos para pagos Rechazados"
 "Choose the status when payment was canceled","Elija el estado de los pedidos para pagos Cancelados"
+"Choose the status when payment was charge back","Elija el estado de los pedidos para pagos con status Charge Back"
 
 "Refund Options","Opciones de reembolso"
 "Refund Available","Reembolso disponible"
@@ -171,14 +174,13 @@ Es un requisito que usted cuente con un certificado SSL, y que el formulario de 
 "Installments: %s","Cuotas: %s"
 "Statement Descriptor: %s","Identificación en la Factura de la Tarjeta de Crédito: %s"
 "Payment Id (Mercado Pago): %s","Número de Pago (Mercado Pago): %s"
-"Payment Status: %s (%s)","Estado del Pago: %s (%s)"
-"Payment Status: ","Estado del Pago: "
-"Payment Detail: ","Detalle del Pago: "
-"Mercado Pago Payment Id: %s","Id transacción Mercado Pago: %s"
+
 
 
 "Mercado Pago Payment Id: %s","Id transacción Mercado Pago: %s"
 "Payment Status: approved","Estado del Pago: Aprobado"
+"Payment Status: in_process", "Estado del Pago: en proceso"
+"Payment Status: rejected", "Estado del Pago: rechazado"
 "Payment Detail: accredited","Detalle del Pago: acreditado"
 "Payment Detail: pending_contingency","Detalle del Pago: pendiente"
 "Payment Detail: cc_rejected_call_for_authorize","Detalle del Pago: Tarjeta de crédito rechazada. Llamar para autorizar."
@@ -187,11 +189,6 @@ Es un requisito que usted cuente con un certificado SSL, y que el formulario de 
 "Payment Detail: cc_rejected_bad_filled_other","Detalle del Pago: Tarjeta de crédito rechazada por error en formulario."
 "Payment Detail: cc_rejected_other_reason","Detalle del Pago: Rechazo general"
 "Payment Detail: cc_rejected_bad_filled_date","Detalle del Pago: Tarjeta de crédito rechazada por fecha de expiración."
-
-
-"Payment Status: in_process", "Estado del Pago: en proceso"
-"Payment Status: rejected", "Estado del Pago: rechazado"
-
 
 
 "Click on the link to generate the ticket","Clique en el link para mostrar el ticket de pago"
@@ -312,7 +309,7 @@ Es un requisito que usted cuente con un certificado SSL, y que el formulario de 
 "Cancellation made by Mercado Pago","Cancelación efectuada mediante Mercado Pago"
 "Failed to make the cancellation by Mercado Pago","Error al efectuar la cancelación mediante Mercado Pago"
 "Order payment wasn't made by Mercado Pago. The cancellation will be made through Magento","El pago de la orden no fue realizado mediante Mercado Pago. La cancelación se hará a traves de Magento."
-"Mercado Pago cancellation are disabled. The cancellation will be made through Magento","Las cancelaciones de Mercado Pago están deshabilitadas. La cancelación se hará a traves de Magento"
+"Mercado Pago cancellation is disabled. The cancellation will be made through Magento","Las cancelaciones de Mercado Pago están deshabilitadas. La cancelación se hará a traves de Magento"
 "You can only make cancellations on orders whose status is Processing or Pending","Solo se pueden hacer cancelaciones sobre ordenes cuyo estado sea En proceso o Pendiente"
 "You can only make cancellations on orders whose payment status is Rejected, Pending o In Process","Solo se pueden hacer cancelaciones sobre ordenes cuyo estado de pago sea Rechazado, Pendiente o En Proceso"
 "Mercado Pago - Cancellations not made","Mercado Pago - Cancelación no efectuada"
@@ -336,11 +333,12 @@ Es un requisito que usted cuente con un certificado SSL, y que el formulario de 
 "This payment method is used only for recurring profiles.","Este método de pago es usado solo para perfiles recurrentes"
 "Payment information", "Información de pago"
 
-
 "Payments Calculator","Calculador de Cuotas"
 "Enable Mercado Pago Installments Calculator","Habilitar Calculadora de Cuotas de Mercado Pago"
-"if set to YES, Calculator will appear on the selected pages","Si está configuración se setea en YES, la calculadora aparecerá en las páginas seleccionadas"
+"if set to YES, Calculator will appear on the selected pages - Custom checkout credentials (Public Key and Access Token) must be set","Si está configuración se setea en YES, la calculadora aparecerá en las páginas seleccionadas - Se deben establecer las credenciales 'Public Key' y 'Access Token' dentro de la configuración 'Custom Checkout'"
 "Show Calculator on selected pages", "Mostrar calculadora en las siguientes páginas seleccionadas"
+"Cart page","Pagina del carrito"
+"Product Detail Page","PDP"
 
 "Calculate your payments ", "Calculá tus Cuotas"
 "with ", "con "
@@ -363,8 +361,8 @@ Es un requisito que usted cuente con un certificado SSL, y que el formulario de 
 "Amount","Importe"
 "Remaining Amount","Importe restante"
 "Last 3 numbers on back side.","Los últimos 3 números que están al dorso."
-"Choice... ","Seleccione..."
-"Choice","Seleccione"
+"Select... ","Seleccione..."
+"Select","Seleccione"
 " Total amount: ","Importe Total"
 "Expiration Date","Fecha de vencimiento"
 "Document","Documento"
@@ -379,6 +377,34 @@ Es un requisito que usted cuente con un certificado SSL, y que el formulario de 
 "Close","Cerrar"
 "Configure","Configurar"
 
+"Order Status Update - Cron Configuration","Chequeo del estado de las Ordenes - Configuración del Cron"
 "Time between verifications","Tiempo entre verificaciones"
-"Amount of hours","Cantidad de horas"
-"Try to update all the orders created "amount of hours" before time to the moment to execute the cron","Verifica e intenta actualizar todas las ordenes creadas 'cantidad de horas' antes de la hora en la que se ejecuta el cron"
+"Interval","Intervalo"
+"A interval is X hours before cron execution instant. Orders between this interval are updated.","Un intervalo son las X horas antes de la ejecucion del cron. Las ordenes dentro de este intervalo se actualizaran."
+
+"The cancellation will be made through Magento. It wasn't possible to cancel on MercadoPago","La cancelación se realizó a través de Magento. No fue posible cancelarla en MercadoPago"
+
+"Use Tax/VAT number","Utilizar el campo Tax/VAT"
+"Automatically populates the document number field with Tax/VAT","Completar automáticamente el número de documento con el campo Tax/VAT"
+"Select the Street Address Number to use for Address","Seleccione el Street Address Number para usar en la dirrección"
+"Select the Street Address Number to use for Address Number","Seleccione el Street Address Number para usar en el número de dirrección"
+
+"Information requested in accordance with the rules of Circular No. 3.461/09, 3.598/12 and 3.656/13 of the Banco Central do Brasil.","Información solicitada de acuerdo con las normas de las circulares Nro. 3.461/09, 3.598/12 e 3.656/13 del Banco Central de Brasil."
+"Select","Seleccione"
+"Name","Nombre"
+"Surname","Apellido"
+"Document Number","Número de documento"
+"Address","Dirrección"
+"Number","Número"
+"City","Ciudad"
+"State","Estado"
+"Zipcode","Código postal"
+
+"Name required","Obligatorio completar el Nombre"
+"Surname required","Obligatorio completar el Nombre"
+"Document Number required","Obligatorio completar de un documento valido"
+"Address required","Obligatorio completar la dirrección"
+"Number Address required","Obligatorio completar el Número de dirrección"
+"City required","Obligatorio completar el Ciudad"
+"State required","Obligatorio completar el Estado"
+"Zipcode required","Obligatorio completar el Código postal"
