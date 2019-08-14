@@ -180,7 +180,7 @@ class MercadoPago_Lib_Api {
     public function create_preference($preference) {
         $access_token = $this->get_access_token();
 
-        $extra_params =  array('user-agent:platform:'. $this->_platform .',type:'. $this->_type .',so;');
+        $extra_params =  array('platform: ' . $this->_platform, 'so;', 'type: ' .  $this->_type);
         $preference_result = MercadoPago_Lib_RestClient::post("/checkout/preferences?access_token=" . $access_token, $preference, "application/json", $extra_params);
         return $preference_result;
     }
@@ -302,8 +302,7 @@ class MercadoPago_Lib_Api {
             $uri .= $this->build_query($params);
         }
 
-        $extra_params =  array('x-tracking-id:platform:' . $this->_platform . ',type:' . $this->_type . ',so;');
-
+        $extra_params =  array('platform: ' . $this->_platform, 'so;', 'type: ' .  $this->_type);
         $result = MercadoPago_Lib_RestClient::post($uri, $data, "application/json", $extra_params);
         return $result;
     }
