@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/MercadoPagoTransparent",
+    "name": "OpenMageModuleFostering\/MercadoPagoTransparent",
     "type": "magento-module",
     "license": "OSL-v3.0",
     "homepage": "",
     "description": "MercadoPago payment extension for Magento: receive payments with our customizable checkout",
     "authors": [
-    {
-        "name": "Developers MercadoPago Brasil",
-        "email": "modulos@mercadopago.com"
-    }
-],
+        {
+            "name": "Developers MercadoPago Brasil",
+            "email": "modulos@mercadopago.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
